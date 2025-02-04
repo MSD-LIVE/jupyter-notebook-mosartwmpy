@@ -1,0 +1,29 @@
+simulation:
+  name: tutorial
+  restart_file: ./output/tutorial/restart_files/tutorial_restart_1981_05_15.nc 
+  start_date: 1981-05-15
+  end_date: 1981-05-31
+
+grid:
+  path: ../data/input/domains/mosart.nc
+  land:
+    path: ../data/input/domains/land.nc
+
+runoff: 
+  read_from_file: true
+  path: ../data/input/runoff/runoff_1981_05.nc
+
+water_management:
+  enabled: true
+  demand:
+    read_from_file: true
+    path: ../data/input/demand/demand_1981_05.nc
+  reservoirs:
+    parameters:
+      path: ../data/input/reservoirs/reservoirs.nc
+    dependencies:
+      path: ../data/input/reservoirs/dependency_database.parquet
+    streamflow:
+      path: ../data/input/reservoirs/mean_monthly_reservoir_flow.parquet
+    demand:
+      path: ../data/input/reservoirs/mean_monthly_reservoir_demand.parquet
