@@ -1,7 +1,3 @@
-# To test this container locally, run:
-# docker build -t mosartwmpy .
-# docker run --rm -p 8888:8888 mosartwmpy
-
 FROM ghcr.io/msd-live/jupyter/python-notebook:latest
 
 
@@ -11,3 +7,6 @@ RUN pip install mosartwmpy
 
 # Install tutorial data.
 
+# To test this container locally, run:
+# docker build -t mosartwmpy .
+# docker run --rm -p 8888:8888 mosartwmpy
