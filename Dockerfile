@@ -10,3 +10,7 @@ RUN pip install mosartwmpy
 # To test this container locally, run:
 # docker build -t mosartwmpy .
 # docker run --rm -p 8888:8888 mosartwmpy
+
+# RUN mkdir -p /data
+COPY notebooks /home/jovyan/notebooks
+ENV DATA_DIR=/data

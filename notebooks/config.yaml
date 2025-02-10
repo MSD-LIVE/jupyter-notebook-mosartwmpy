@@ -13,23 +13,23 @@ simulation:
 grid:
   subdomain: ~
   unmask_output: true
-  path: ./input/domains/mosart_conus_nldas_grid.nc
+  path: ../data/input/domains/mosart_conus_nldas_grid.nc
 
 runoff:
   read_from_file: true
-  path: ./input/runoff/runoff_1981_05.nc
+  path: ../data/input/runoff/runoff_1981_05.nc
 
 water_management:
   enabled: true
   demand:
     read_from_file: true
-    path: ./input/demand/demand_1981_05.nc
+    path: ../data/input/demand/demand_1981_05.nc
   reservoirs:
     parameters:
-      path: ./input/reservoirs/reservoirs.nc
+      path: ../data/input/reservoirs/reservoirs.nc
     dependencies:
-      path: ./input/reservoirs/dependency_database.parquet
+      path: ../data/input/reservoirs/dependency_database.parquet
     streamflow:
-      path: ./input/reservoirs/mean_monthly_reservoir_flow.parquet
+      path: ../data/input/reservoirs/mean_monthly_reservoir_flow.parquet
     demand:
-      path: ./input/reservoirs/mean_monthly_reservoir_demand.parquet
+      path: ../data/input/reservoirs/mean_monthly_reservoir_demand.parquet
