@@ -8,6 +8,12 @@ on:
   repository_dispatch:
     types: [trigger-build-dev, trigger-build-latest]
 
+permissions:
+  contents: write # Required to create releases
+  id-token: write # Required for the GITHUB_TOKEN to create releases
+  actions: read # Required to access actions
+  packages: write # Required to push Docker images
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
