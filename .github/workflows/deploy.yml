@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - dev
+  repository_dispatch:
+    types: [trigger-build-dev, trigger-build-latest]
 
 jobs:
   deploy:
@@ -30,12 +32,30 @@ jobs:
       # jupyter/$DEPLOYMENT_NAME-notebook:latest (e.g., jupyter/statemodify-notebook:latest).
       - name: Build and push Docker image
         run: |
-          if [[ ${{ github.ref }} == 'refs/heads/dev' ]]; then
-            TAG="dev"
-          elif [[ ${{ github.ref }} == 'refs/heads/main' ]]; then
-            TAG="latest"
+          if [[ $GITHUB_EVENT_NAME == 'push' ]]; then
+            if [[ ${{ github.ref }} == 'refs/heads/dev' ]]; then
+              echo "PUSH event, building dev image"
+              TAG="dev"
+            elif [[ ${{ github.ref }} == 'refs/heads/main' ]]; then
+              echo "PUSH event, building latest image"
+              TAG="latest"
+            else
+              echo "This action only runs on dev or main branches."
+              exit 1
+            fi
+          elif [[ $GITHUB_EVENT_NAME == 'repository_dispatch' ]]; then
+            if [[ ${{ github.event.action }} == 'trigger-build-dev' ]]; then
+              echo "REPOSITORY_DISPATCH event, building dev image"
+              TAG="dev"
+            elif [[ ${{ github.event.action }} == 'trigger-build-latest' ]]; then
+              echo "REPOSITORY_DISPATCH event, building latest image"
+              TAG="latest"
+            else
+              echo "Unsupported repository_dispatch event: ${{ github.event.action }}"
+              exit 1
+            fi
           else
-            echo "This action only runs on dev or main branches."
+            echo "Unsupported event: $GITHUB_EVENT_NAME"
             exit 1
           fi
           REPO_NAME=${{ github.event.repository.name }}
