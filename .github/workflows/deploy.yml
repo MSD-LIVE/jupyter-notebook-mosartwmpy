@@ -50,14 +50,15 @@ jobs:
               exit 1
             fi
           elif [[ $GITHUB_EVENT_NAME == 'repository_dispatch' ]]; then
-            if [[ $GITHUB_EVENT_ACTION == 'trigger-build-dev' ]]; then
+            echo "repository_dispatch event: ${{ github.event.action }}"
+            if [[  ${{ github.event.action }} == 'trigger-build-dev' ]]; then
               echo "REPOSITORY_DISPATCH event, building dev image"
               TAG="dev"
-            elif [[ $GITHUB_EVENT_ACTION == 'trigger-build-latest' ]]; then
+            elif [[  ${{ github.event.action }} == 'trigger-build-latest' ]]; then
               echo "REPOSITORY_DISPATCH event, building latest image"
               TAG="latest"
             else
-              echo "Unsupported repository_dispatch event: $GITHUB_EVENT_ACTION"
+              echo "Unsupported repository_dispatch event:  ${{ github.event.action }}"
               exit 1
             fi
           else
