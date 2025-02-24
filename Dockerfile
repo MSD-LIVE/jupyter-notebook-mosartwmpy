@@ -13,4 +13,3 @@ RUN pip install mosartwmpy
 
 # RUN mkdir -p /data
 COPY notebooks /home/jovyan/notebooks
-ENV DATA_DIR=/data
